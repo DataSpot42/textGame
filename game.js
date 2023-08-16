@@ -10,3 +10,4 @@ export const getcharacter = async() => {
     } )
     return character
 }
+

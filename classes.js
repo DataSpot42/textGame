@@ -3,7 +3,7 @@
 
 export class Character{
 
-    constructor (name, speed, intellect, strength, health, inventory){
+    constructor (name, intellect, strength, speed, health, inventory){
 
         this.name = name;
 
@@ -24,7 +24,7 @@ export class Character{
             
             return console.table({
                 name : this.name,
-                health: this.interlect,
+                intellect: this.intellect,
                 strength: this.strength,
                 speed: this.speed,
                 health: this.health,
@@ -39,7 +39,7 @@ export class Character{
 
  
 
-// export const Doctor =  new Character ('Doctor',5,10,4,10, 'Antidote')
+const Doctor =  new Character ('Doctor',5,10,4,10, 'Antidote')
 
  
 
@@ -80,7 +80,7 @@ const Guard = new Character('Guard',7,6,9,7)
  
 
 
-export const chosenstats = stats()
+
 //console.log(chosenstats)
 
 //export const getCharStats = async () => {
