@@ -78,9 +78,10 @@ export class Doctor extends crew {
         return this;
     }
     badFood() {
-        this.health -=4;
-        console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man..`);
-    }
+        
+        if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
+        else { this.health -=2; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
+     this.stats();}
 
 }
 

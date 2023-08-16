@@ -1,6 +1,8 @@
 
 import {getcharacter} from "./game.js"
-
+import {alien} from "./alienimage.js"
+import {hubpic} from "./alienhubimage.js"
+import {cavepic} from "./caveimage.js"
 import  * as allofthem from "./classes.js"
 import { meetJunior } from "./meetJ.js"
 import { talk1 } from "./meetJ.js"
@@ -17,6 +19,7 @@ let chosen = ""
 
 
 const start = async () => {
+    console.clear()
     console.log('choose wisely')
     let character = await getcharacter()
     console.log(`You have chosen the ` + character + '.  His stats are:')
@@ -26,12 +29,23 @@ const start = async () => {
     if (character == "Captain") { chosen = new Character ('Captain', 8, 8, 8, 8, 'Artifact')}   
     if (character == "Ensign") { chosen = new Character ('Ensign', 4,4, 4, 6, 'Disguise')}      
     chosen.stats()
-    meet()
+    
+    const myTimeout = setTimeout(alienimage, 1000);
+    
       
     
 }
 
+const alienimage = async () =>{
+    console.clear()
+    let alienimage1 = await alien();
+    console.log('\x1b[32m',alienimage1)
+    meet()
+
+}
+
 const meet = async () => {
+    
     console.log('You beam down to the planet')
     let alien1 = new allofthem.Junior ("SlartyBartFast")
     
@@ -65,7 +79,10 @@ hub()
 }
 
 const hub = async () => {
-    console.log('You arrive at the Central Hub of the planet')
+    console.clear()
+    let hubimage = await hubpic()
+    console.log('\x1b[36m%s\x1b[0m',hubimage)
+    console.log('\x1b[36m%s\x1b[0m','You arrive at the Central Hub of the planet')
     let nextlocation = await location()
     console.log('You chose to go to ' + nextlocation)
     if (nextlocation.charAt(0) == "A") {mainPod()}
@@ -78,14 +95,14 @@ const hub = async () => {
 
 }
 const mainPod = async () => {
+    console.clear()
     console.log('You enter the pod')
     let pod1 = await pod()
     console.log('You have chosen to ' + pod1.toLowerCase())
-    if(pod1.charAt(0) =='A' && chosen.inventory != "Antidote"){
-        console.log('This food is poisonous, you lose '+ 2+ ' health'); chosen.health-=2}
-        else { console.log('Luckily you had an antidote to that poisonous food')}
-        chosen.stats() 
-        hub()
+    if(pod1.charAt(0) =='A'){
+        chosen.badFood()}
+        
+        setTimeout(hub, 1000)
       if ( pod1.charAt(0) == 'B'){
         console.log('You are smart. Go back to the central hub!')
         hub()
@@ -93,6 +110,9 @@ const mainPod = async () => {
 
     }
 const mainCave = async () => {
+    console.clear()
+    let caveimage = await cavepic()
+    console.log('\x1b[90m',caveimage)
     console.log('You enter the cave') 
     let cave1 = await cave()
     let rightTunnel1 = await rightTunnel()

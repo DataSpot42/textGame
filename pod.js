@@ -3,7 +3,7 @@ import inquirer from "inquirer";
 
 export const pod = async() => {
     let {food} = await inquirer.prompt({
-        message: 'You have just found some food in the pod. Do you eat it?',
+        message: 'You have just found some tasty looking mushrooms in the pod. Do you eat it?',
         type: 'list',
         choices: ['A: EAT', 'B: NOT EAT'],
         name: "food"
@@ -15,7 +15,7 @@ export const pod = async() => {
 //const start = async () => {
     
   //  let eat = await pod()
-    // console.log(`You have chosen to ` + eat.toLowerCase() + ' the food');
+    // console.log(`You have chosen to ` + eat.toLowerCase() + ' the mushrooms');
    /* let decision = await eat()
    if( pod == 'EAT'){
     console.log('The food was poisonous. You lose .. health')
