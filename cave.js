@@ -12,6 +12,18 @@ export const cave = async() => {
     return direction
 }
 
+export const rightTunnel  = async() => {
+    let {option} = await inquirer.prompt({
+        message: 'What do you do?',
+        type: 'list',
+        choices: ['A: TALK', 'B: FIGHT'],
+        name: "option"
+ 
+    } )
+    return option
+}
+
+
 //const start = async () => {
     
   //  let riLe = await cave()

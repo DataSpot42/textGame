@@ -1,10 +1,15 @@
 
 import {getcharacter} from "./game.js"
-import { Character} from "./classes.js"
+
+import  * as allofthem from "./classes.js"
 import { meetJunior } from "./meetJ.js"
 import { talk1 } from "./meetJ.js"
 import { talk2 } from "./meetJ.js"
 import { location } from "./location.js"
+import {pod} from "./pod.js"
+import {storage} from "./storage.js"
+import {cave} from "./cave.js"
+import {rightTunnel} from "./cave.js"
 let chosen = ""
 
 
@@ -15,7 +20,7 @@ const start = async () => {
     console.log('choose wisely')
     let character = await getcharacter()
     console.log(`You have chosen the ` + character + '.  His stats are:')
-    if (character == "Doctor") { chosen = new Character ('Doctor',5,10,4,10, 'Antidote')}
+    if (character == "Doctor") { chosen = new allofthem.Doctor ('Fred')}
     if (character == 'Security Officer') { chosen = new Character ('Security Officer', 8, 3, 10, 10,'Gun')}
     if (character == "Science Officer") { chosen = new Character  ('Science Officer',4,9,5,8, 'Scanner')}  
     if (character == "Captain") { chosen = new Character ('Captain', 8, 8, 8, 8, 'Artifact')}   
@@ -28,9 +33,9 @@ const start = async () => {
 
 const meet = async () => {
     console.log('You beam down to the planet')
-    let alien1 = new Character ('Junior',5,2,3,8)
+    let alien1 = new allofthem.Junior ("SlartyBartFast")
     
-    let meeting1 = await meetJunior()
+    let meeting1 = await meetJunior(alien1.name)
     alien1.stats()
     
     console.log('You have chosen to ' + meeting1)
@@ -46,7 +51,16 @@ const meet = async () => {
                                                                 {console.log(alien1.name + ' says: Yes are weather is even worse than Manchester!')}
                                                                 if(meeting2.charAt(0) == "B") 
                                                                 {console.log(alien1.name + ' says: At least we dont wear shell suits like people from Liverpool!')} }}
-console.log('You proceed towards the Central Hub of the planet')
+    if (meeting1 == 'FIGHT') {
+           console.log('You are going to fight the alien')
+           console.log(chosen)
+            let round1 = new actions(chosen)
+            round1.fight()
+    }
+
+
+
+                                                                console.log('You proceed towards the Central Hub of the planet')
 hub()
 }
 
@@ -54,20 +68,67 @@ const hub = async () => {
     console.log('You arrive at the Central Hub of the planet')
     let nextlocation = await location()
     console.log('You chose to go to ' + nextlocation)
-    if (nextlocation.charAt(0) == "A") {pod()}
-    if (nextlocation.charAt(0) == "B") {cave()}
-    if (nextlocation.charAt(0) == "C") {storage()}
+    if (nextlocation.charAt(0) == "A") {mainPod()}
+    if (nextlocation.charAt(0) == "B") {mainCave()}
+    if (nextlocation.charAt(0) == "C") {mainStorage()}
     if (nextlocation.charAt(0) == "D") {ship()}
 
 
 
 
 }
-const pod = async () => {
+const mainPod = async () => {
     console.log('You enter the pod')
+    let pod1 = await pod()
+    console.log('You have chosen to ' + pod1.toLowerCase())
+    if(pod1.charAt(0) =='A' && chosen.inventory != "Antidote"){
+        console.log('This food is poisonous, you lose '+ 2+ ' health'); chosen.health-=2}
+        else { console.log('Luckily you had an antidote to that poisonous food')}
+        chosen.stats() 
+        hub()
+      if ( pod1.charAt(0) == 'B'){
+        console.log('You are smart. Go back to the central hub!')
+        hub()
+    } else{}
+
+    }
+const mainCave = async () => {
+    console.log('You enter the cave') 
+    let cave1 = await cave()
+    let rightTunnel1 = await rightTunnel()
+    console.log('You have chosen  '+ cave1)
+   if(cave1.charAt(0)== 'A'){
+    console.log('You encounter The Beast. He begins to chase you.')
+    if (chosen.speed>7){
+        console.log ('You have managed to escape The Beast, because you were fast enough.')
+    }
+     else {console.log('You are too slow, you lose '+ 4+ ' health'); chosen.health-=4;chosen.stats() }
+   }
+   else (cave1.charAt(0)== 'B')
+    console.log('You encounter The Alien.')
+     console.log('You have chosen  '+ rightTunnel1)
+     if (rightTunnel.charAt(0)=='A'){
+        
+     }
+   
+   }
+   
+   
+   
+    
+
+
+    
+    
+
+
+const mainStorage = async () => {
+    console.log('You enter the storage unit')
+    let storage1 = await storage()
+    console.log('You have chosen to ' + storage1 + '. Lets head back to the Central Hub')
+    
+    hub()
 }
-
-
 
 
 

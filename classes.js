@@ -3,7 +3,8 @@
 
 export class Character{
 
-    constructor (name, intellect, strength, speed, health, inventory){
+    constructor (name, intellect, strength, speed, 
+        health){
 
         this.name = name;
 
@@ -15,7 +16,7 @@ export class Character{
 
         this.health = health;
 
-        this.inventory = inventory;
+       
 
  
 
@@ -35,11 +36,93 @@ export class Character{
 
 } 
 
- 
+class crew extends Character {
+    constructor (name, intellect, strength, speed, 
+        health, inventory) {
+        super (name, intellect, strength, speed, 
+            health, inventory);
+
+            this.inventory = inventory;
+    }
+}   
+class aliens extends Character {
+    constructor (name, intellect, strength, speed, 
+        health, aggression) {
+        super (name, intellect, strength, speed, 
+            health, aggression);
+            this.aggression = aggression
+        
+}
+}
+
+
+export class Doctor extends crew {
+    constructor (name, intellect, strength, speed, 
+        health, inventory) {
+        super (intellect, strength, speed, 
+            health, inventory);
+
+        this.name = name
+        this.intellect = 10
+        this.strength = 5
+        this.speed = 4
+        this.health = 10
+        this.inventory = 'Antidote'
+        
+    }
+
+    fight() {
+        this.health -= 3;
+        console.log(`${this.name} took a punch`);
+        this.stats();
+        return this;
+    }
+    badFood() {
+        this.health -=4;
+        console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man..`);
+    }
+
+}
+
+export class Junior extends aliens {
+    constructor (name, intellect, strength, speed, 
+        health, aggression) {
+        super (intellect, strength, speed, 
+            health, aggression);
+
+        this.name = name
+        this.intellect = 5
+        this.strength = 2
+        this.speed = 3
+        this.health = 8
+        this.aggression = 2
+
+        
+        
+    }
+
+    fight() {
+        this.health -= 3;
+        console.log(`${this.name} took a punch`);
+        this.stats();
+        return this;
+    }
+    badFood() {
+        this.health -=4;
+        console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man..`);
+    }
+
+}
+    
+
+
+    
+
+  //  constructor(name, friendliness)} 
 
  
 
-const Doctor =  new Character ('Doctor',5,10,4,10, 'Antidote')
+
 
  
 
@@ -63,7 +146,7 @@ export const alienLeader = new Character ('Alien Leader', 9, 8, 10, 9)
 
  
 
-const Junior = new Character ('Junior',3,2,3,8)
+
 
  
 

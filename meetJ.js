@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
 
 
-export const meetJunior = async() => {
+export const meetJunior = async(test) => {
     let {meetJ} = await inquirer.prompt({
-        message: 'Oh no you have come across your first alien, JUNIOR!!! You must make the decision to FIGHT or TALK.',
+        message: `Oh no you have come across your first alien, ${test} You must make the decision to FIGHT or TALK.`,
         type: 'list',
         choices: ['TALK','FIGHT'],
         name: "meetJ"

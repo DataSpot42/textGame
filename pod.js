@@ -12,10 +12,10 @@ export const pod = async() => {
     return food
 }
 
-const start = async () => {
+//const start = async () => {
     
-    let eat = await pod()
-    console.log(`You have chosen to ` + eat.toLowerCase() + ' the food');
+  //  let eat = await pod()
+    // console.log(`You have chosen to ` + eat.toLowerCase() + ' the food');
    /* let decision = await eat()
    if( pod == 'EAT'){
     console.log('The food was poisonous. You lose .. health')
@@ -23,6 +23,6 @@ const start = async () => {
    else if (pod == 'NOT EAT'){
     console.log('You are smart. Go back to the central hub.')
    } */
-}
+// }
 
 
