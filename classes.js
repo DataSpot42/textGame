@@ -1,5 +1,5 @@
 
-import {giveCharacter} from "./script.js"
+
 
 export class Character{
 
@@ -39,7 +39,7 @@ export class Character{
 
  
 
-export const Doctor =  new Character ('Doctor',5,10,4,10, 'Antidote')
+// export const Doctor =  new Character ('Doctor',5,10,4,10, 'Antidote')
 
  
 
@@ -80,15 +80,15 @@ const Guard = new Character('Guard',7,6,9,7)
  
 
 
-//export const chosenstats = character.stats()
+export const chosenstats = stats()
 //console.log(chosenstats)
 
-export const getCharStats = async () => {
-    let character = giveCharacter()
-    character.stats()
+//export const getCharStats = async () => {
+    
+//    return dostats()
     
     
-}
+//}
 
 
  
