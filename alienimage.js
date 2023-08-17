@@ -41,3 +41,42 @@ export const alien = async() => {
 
 return image;
 }
+
+export const gameover = async() => {
+    let image = `BBBBBBBBBBB#############&BPGP5555PGGGGPG################BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB######BBBYJ
+    BBBBBBBBBBBBBBBBBBBBBBBB#####GBGG#&#####BBBBY77777777775BBB#BBBBBBBBBBBBBBBBBBBBBBBBB###BGGGGGG555JJ
+    BBBBBBBBBBBBBBBBBBBBBBBBBBBB######BBB#GPG!:^.          .^:7GPG#BBBBBBBBBBBBBBBBBBB#######BBBBBB#GPPP
+    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#PJ: .                  . :JG#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#####
+    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBG7^                          ^7GBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB##
+    ####BBBBBBBBBBBBBBBBBBBBBBBBBBBB#?.                              :J#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    GGG#&########BBBBBBBBBBBBBBBBBBGJ^                                ~JBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    555PGGGGGGGGGBBBB##BBBBBBBBBBB#5                                    P#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    PPPG####B##G5~^^^7PB#BBBBBBBBB#5                                   .PBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    ####BBBB#GJ!~~:....7YBBBBBBBBB#5   ^.                          ::  .PBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    B#BBBBBB#Y :^....~J:~BBBBBBBBB#5  .!^     .^^^^:.  .^^^^^      ^!  .PBBBBBB#########BBBBBBBBBBBBBBBB
+    BBBBBBBB#5!:...:~7J!?BBBBBBBBB#5    ^!.        :^..^:        .!:    P####&#B5Y5555B&####BBBBBBBBBBBB
+    BBBBBBBBBB#Y7..:!7JG#BBBBBBBBBBG?^  ^!.^YYYJYJ.  ::  .JYJYYY:.!:  ^JB##BGG5JJY5555PGGGG##########BBB
+    BBBBBBBBBBB#BPPP5G#BBBBBBBBBBBBB#7.^^^P#@@@@@@BG5^~PGB@@@@@@#5^^^.7BGGGP55YY55555555555PGGGGGGGPB###
+    BBBBBBBBBBBBB####BBBBBBBBBBBBBBB#J~ ?@@@@@@@@@@5.  .G@@@@@@@@@@7.!Y######55555GPPPPPPPPB#########BBB
+    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#7: ?@@@@@@@@&J~ J? ~J&@@@@@@@@7 :J####BG555GB#########BBBBBBBBBBBBB
+    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#!  :~G#B#P~~~ !#@@B~ ~~!G#B#P~.  ?#####BBBB#BBBBBBBBBBBBBBBBBBBBBBB
+    ####BB##BBBBB#####BBBBBBBBBBBBBB#!  .^^^^:^^^^ ?@@@@! ^^^^:^^^^.  7#BBBBBBBBBBBBBBBBBBBBBBBB##BB####
+    @@@&&&&@&&&&&#####BBBBBBBBBBBBBBB5?.  ::^~~    ?@?J@!    ~~^:.  :JPBBBBBBBBBBBBBBBBBBBBBBB&&@&&&@@@@
+    @@@@@@@@@@&##BBBBBBBBBBBBBBBBBBBB##G?:.!#?^    .:  :.    ^J#~.:JG##BBBBBBBBBBBBBBBBBBBB###@@@@@@@@@@
+    @@&&&&&&&#BBBBBBBBBBBBBBBBBBBBBBBBBBBB~?@@B ~?.  7!  .?^.#@@7!BBBBBBBBBBBBBBBBBBBBBBBBB#&@&&&&&&&&@@
+    @&BBBBBBBB#BBBBBBBBBBBBBBBBBBBBBBBBBBB.!@@B.5@^.:#B..~@J:#@@^^BBBBBBBBBBBBBBBBBBBBBBBBBB##&&&&&BBB@@
+    @@#####B&&&&@@&####&&##BBBBBBBBBBBBBBB.!@@&5#@P5P&&55P@B5&@@^:BBBBBBBBBBBBBBB##&&####&@@&&@&######@@
+    @@@@@@&B@@&@@@@@@@@@@&#BBBBBBBBBBBBBBB??J#B 5&:  #G  ^@J.&BJ?JBBBBBBBBBBBBBBB#&@@@@@@@@@&&@&B&@@@@@@
+    @@@@@@@&@@@@@###@@@@&BBB&#BBBBBBBBBBBB#GY!^ :~   GP  .~: ^7YB#BBBBBBBBBBBBB#BBB&@@@@###@@@@@&@@@@@@@
+    @@@@@@@@@@@&&B##@@@@&###@&BBBBBBBBBBBBBB#7^~.          :~^?#BBBBBBBBBBBBBB&@B##@@@@@###&&&@@@@@@@@&&
+    ###&@@@@@@@#BB#&@@@@@@@@@&BBBBBBBBBBBBBBB###5??????????P###BBBBBBBBBBBBBBB#&&&@@@@@@&@@B#&@@@@@@&#BB
+    BBB###&@@@@BGPGB####BGGGGGPGGBGG#BB#BGBBGGPPGGGB####BGGGPPPGBBGBBBBBGGBGGPGBGGGB###BBGG#&@@@@&###B##
+    ###&@@&&&&&7^777???GP:!7777^7#!~YGBY7:G5:!77777Y#BB#7^7777!:PP:Y#BBB^7#!^7????7G5:7?7775G&&&&&@@&#&&
+    #&@@@@&&&&&!~&&&@@@#5:5&BBG^7#~^J??J!:G5:5BBBBBBBBB#!^B###Y:PP:Y#B#B^!#~~B##&&&#5:P@#&B^?&&&&@@@@@&&
+    &@@@@@@@@@@7~@@@J7~GP:!?77!:7#~~#GP#J:G5:!777?B#BBB#!^B###Y:PP^JP#G5~?#!:7777P@&5:!????5B@@@@@@@@@##
+    @@@@@@@@@@@!:55557:GG:5#BBG:!#~~BB##J:G5:7JJJJJ5BBB#!:JJJY7:P#BY7J??GBB~:JJJYY5#P:5&#&#^?@@@@@@@@@@@
+    @@@@@@@@@@@GP5YYYYY##PGBBBB5PB55BBBBPYBGYYYYYYYPBBBBPYYYYYYYGBB#BYP#BBB5YYYYY55#BYG#B&@PB@@@@@@@@@@@
+    &&&#BB&@@@@@@@@@@@@@&#&&#BB##B##BBBBB#BB########BBBB########BBBBB#BBBBB#####@&&&@@@@@@@@@@@&BB#@@&&@
+    #BB###&@@@@@@@&&@@@#BB#&@&#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#@@@##@@@&&@@@@@@##&@&BB#`
+    return image
+}

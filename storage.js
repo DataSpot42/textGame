@@ -5,7 +5,7 @@ export const storage = async() => {
     let {inventory} = await inquirer.prompt({
         message: 'You have just entered the storage unit and have found a packet of peanuts. What would you like to do with them?',
         type: 'list',
-        choices: ['A: Eat them', 'B: Add to inventory'],
+        choices: ['A: Eat them', 'B: Replace anything you have in inventory with this item'],
         name: "inventory"
  
     } )

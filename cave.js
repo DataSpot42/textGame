@@ -23,6 +23,30 @@ export const rightTunnel  = async() => {
     return option
 }
 
+export const chooseItem  = async() => {
+    let {option} = await inquirer.prompt({
+        message: 'You find two different items. Which one do you choose?',
+        type: 'list',
+        choices: ['Gun', 'Potion'],
+        name: "option"
+ 
+    } )
+    return option
+}
+
+export const secondChamce  = async() => {
+    let {option} = await inquirer.prompt({
+        message: 'You are given another chance. Do you still wish to fight?',
+        type: 'list',
+        choices: ['A: FIGHT', 'B:RUN'],
+        name: "option"
+ 
+    } )
+    return option
+}
+
+
+
 
 //const start = async () => {
     
