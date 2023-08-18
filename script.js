@@ -1,11 +1,11 @@
 
 import {getcharacter} from "./game.js"
-import {alien, gameover} from "./alienimage.js"
+import {alien, gameover, gamora, leon, winner, podImage, contImage, mathesarImage, beastImage} from "./alienimage.js"
 import {hubpic} from "./alienhubimage.js"
 import {cavepic} from "./caveimage.js"
 import  * as allOfThem from "./classes.js"
 import * as allMeets from "./meetJ.js"
-
+import * as crewpics from "./crewimages.js"
 import { location } from "./location.js"
 import {pod} from "./pod.js"
 import {storage} from "./storage.js"
@@ -17,85 +17,101 @@ import randomItems from "planet-names";
 import uniqueRandomArray from 'unique-random-array';
 import {riddle} from "./newRid.js"
 
-const randomP = uniqueRandomArray(randomItems.all);
+const randomP = uniqueRandomArray(randomItems.all);  // random planet generated
 
 
 
 let chosen = "";
 let entrystoragecount=0;
 let gunheat = 0;
-var colors = import('colors');
-let fall = 0;
+var colors = import('colors');   
+let fall = 0;                    // bit of humour
 let leader2 = undefined;
+let crewimage = undefined;    
 
 
 
 
 
-
-const start = async () => {
+const start = async () => {     //choose your charcater - using the classes and sub-classes get out in classes.js
     console.clear()
     console.log(`You arrive at planet ${randomP()} `.yellow)
     console.log('choose wisely')
     let character = await getcharacter()
-    console.log(`You have chosen the ` + character + '.  His stats are:')
-    if (character == "Doctor") { chosen = new allOfThem.Doctor ('Bones')}
-    if (character == 'Security Officer') { chosen = new allOfThem.securityOfficer ('Worf')}
-    if (character == "Science Officer") { chosen = new allOfThem.scienceOfficer ('Spock')}  
-    if (character == "Captain") { chosen = new allOfThem.Captain ('Kirk')}   
-    if (character == "Ensign") { chosen = new allOfThem.Ensign ('Crusher')}      
-    console.log(chosen)
-    chosen.stats()
+    console.log(`You have chosen the ` + character)
+    if (character == "Doctor") { chosen = new allOfThem.Doctor ('McCoy')
+    crewimage = await crewpics.mccoyImage();
+    console.log(crewimage.cyan)}
+    if (character == 'Security Officer') { chosen = new allOfThem.securityOfficer ('Worf')
+    crewimage = await crewpics.worfImage();
+    console.log(crewimage.yellow)}
+    if (character == "Science Officer") { chosen = new allOfThem.scienceOfficer ('Spock')
+    crewimage = await crewpics.spockImage();
+    console.log(crewimage.blue)}  
+    if (character == "Captain") { chosen = new allOfThem.Captain ('Kirk')
+    crewimage = await crewpics.kirkImage();
+    console.log(crewimage.yellow)}   
+    if (character == "Ensign") { chosen = new allOfThem.Ensign ('Crusher')
+    crewimage = await crewpics.crusherImage();
+    console.log(crewimage.red)}      
     
-    setTimeout(alienimage, 1000);
-    setInterval(checkhealth, 500)
+const myTimeout = setTimeout(holdOff, 4000);   // time delay to allow "image" to be looked at.
+
+    function holdOff() {
+      console.log (`Meet ${character} ${chosen.name}!`)
+        chosen.stats()
+    }
+
+    
+    setTimeout(alienimage, 9000);
+    setInterval(checkhealth, 500)    // constantly checking to see if health drops to 0 to end the game
       
     
 }
 
-const checkhealth = async () => {
-    if (chosen.health <=0) {endDie()}
+const checkhealth = async () => {     
+    if (chosen.health <=0) {endDie()}   // if zero call endDie function
     return
 }
 
-const alienimage = async () =>{
-    console.clear()
+const alienimage = async () =>{      // first image added to the script so done a little differntly to the rest
+    
     let alienimage1 = await alien();
     console.log('\x1b[32m',alienimage1)
     meet()
 
 }
 
-const meet = async () => {
+const meet = async () => {      //first incounter with our alien.  Can you guess what species he is??
     
-    console.log(`You beam down to the planet`.trap)
-    let alien1 = new allOfThem.Junior ("SlartyBartFast")
+    console.log(`You beam down to the planet`.bgYellow)
+    let alien1 = new allOfThem.Junior ("SlartyBartFast")   // what an odd name!
     
     let meeting1 = await allMeets.meetJunior(alien1.name)
     alien1.stats()
     
-    console.log('You have chosen to ' + meeting1)
-    if (meeting1 == 'TALK') {
+    console.log('You have chosen to ' + meeting1)   
+    if (meeting1 == 'TALK') {                                  // talk and you might get some helpful info
         if (chosen.intellect > alien1.intellect) {
                         let meeting2 = await allMeets.talk1()
                         console.log('You chose ' + meeting2);if (meeting2.charAt(0) == "A")
-                                                                {console.log(alien1.name + ' says: You should not eat the mushrooms')}
+                                                                {console.log(alien1.name + ` says: You should not eat the mushrooms`.bgRed)}
                                                             if(meeting2.charAt(0) == "B") 
-                                                                {console.log(alien1.name + ' says: Well, the leader is allergic to peanuts!')} }
+                                                                {console.log(alien1.name + ` says: Well, the leader is allergic to peanuts!`.red)} }
                         else {let meeting2 = await allMeets.talk2()
                         console.log('You chose ' + meeting2); if (meeting2.charAt(0) == "A")
-                                                                {console.log(alien1.name + ' says: Yes are weather is even worse than Manchester!')}
+                                                                {console.log(alien1.name + ` says: Yes are weather is even worse than Manchester!`.blue)}
                                                                 if(meeting2.charAt(0) == "B") 
-                                                                {console.log(alien1.name + ' says: At least we dont wear shell suits like people from Liverpool!')} }
+                                                                {console.log(alien1.name + ` says: At least we dont wear shell suits like people from Liverpool!`.yellow)} }
                                                                 console.log('You proceed towards the Central Hub of the planet')
                             setTimeout(hub,6000)}
     if (meeting1 == 'FIGHT') {
-           console.log('You are going to fight the alien')
+           console.log('You are going to fight the alien')      // can you beat him?
            console.log(chosen)
             let round1 = chosen
             round1.fight(alien1.name)
     
-    let meeting2= await allMeets.meetJunior2(alien1.name)
+    let meeting2= await allMeets.meetJunior2(alien1.name)     // the fight continues
     if (meeting2 == 'FIGHT') {
         console.log(`You are going to continue fighting ${alien1.name}?`)
         console.log(chosen)
@@ -114,7 +130,7 @@ const meet = async () => {
 
 }
 
-const hub = async () => {
+const hub = async () => {               // center of the game, often come back here
     
     let hubimage = await hubpic()
     console.log('\x1b[36m%s\x1b[0m',hubimage)
@@ -128,12 +144,14 @@ const hub = async () => {
     if (nextlocation.charAt(0) == "D") {mainShip()}
 }
 const mainPod = async () => {
+    let podimage = await podImage();
+        console.log(podimage.cyan)
     
     console.log('You enter the pod')
     let pod1 = await pod()
     console.log('You have chosen to ' + pod1.toLowerCase())
     if(pod1.charAt(0) =='A'){
-        chosen.badFood()}
+        chosen.badFood()}    // call a sub-class for the crew member, see what happens....
         
         setTimeout(hub, 1000)
       if ( pod1.charAt(0) == 'B'){
@@ -153,6 +171,8 @@ const mainPod = async () => {
         console.log('You have chosen ' + cave1);
     
         if (cave1.charAt(0) == 'A') {
+            let beastPic = await beastImage();
+        console.log(beastPic.gray)
             console.log('You encounter The Beast. He begins to chase you.');
             
             if (chosen.speed > 7) {
@@ -179,7 +199,9 @@ const mainPod = async () => {
                 setTimeout(mainShip, 1000)
             } }  } 
             else if (cave1.charAt(0) == 'B') {
-            let alien1 = new allOfThem.CaveAlien ("Mathesar")   
+            let alien1 = new allOfThem.CaveAlien ("Mathesar")
+            let mathpic = await mathesarImage();
+            console.log(mathpic.magenta)   
             console.log(`You encounter another Alien, he is called ${alien1.name}`);
             let rightTunnel1 = await rightTunnel();
             console.log('You have chosen ' + rightTunnel1);
@@ -233,14 +255,16 @@ const mainPod = async () => {
 
    
 const mainStorage = async () => {
+    let contpic = await contImage ();
+        console.log(contpic.magenta)
     console.log('You enter the storage unit')
     if (entrystoragecount==1) {console.log('There is nothing in here'); const myTimeoutsU= setTimeout(hub,2000)} else {
     let storage1 = await storage()
     console.log('You have chosen to ' + storage1 + '. Lets head back to the Central Hub')
     if(storage1.charAt(0)== 'A'){
-        console.log('You have chosen to eat them, tasty!'); chosen.health += 2; console.log('Your health is now' + chosen.health)}
+        console.log('You have chosen to eat them, tasty!'); chosen.health += 2; console.log('Your health is now ' + chosen.health)}
     if(storage1.charAt(0)== 'B'){
-        console.log('You have chosen to put them in your inventory'); chosen.inventory = "Peanuts"; console.log('Your inventory now has ' + chosen.inventory + 'in it.')}    
+        console.log('You have chosen to put them in your inventory'); chosen.inventory = "Peanuts"; console.log('Your inventory now has ' + chosen.inventory + ' in it.')}    
     entrystoragecount=1
     setTimeout(hub, 2000)}
 }
@@ -250,7 +274,8 @@ const mainStorage = async () => {
 
 const mainShip = async () => {
     let alien1= new allOfThem.GuardAlien ('Gamora')
-    
+    let gamoraimage = await gamora();
+        console.log(gamoraimage.green)
     console.log(`You are at the ship entrance and are met with ${alien1.name} the alien guard.`)
     let mainShip1 = await entrance()
     if (mainShip1.charAt(0)=='A'){      
@@ -297,7 +322,7 @@ const mainShip = async () => {
        if (chosen.strength > alien1.strength && chosen.speed>alien1.speed) 
           { console.log(`Your strength and speed are better than ${alien1.name}, she can see this and steps asside, you go into the ship`)
        setTimeout(shipInt,1000) } 
-       if (chosen.health <= alien1.health || chosen.strength <= alien1.health) {console.log(`${alien1.name} attacks you`);
+       if (chosen.health <= alien1.health || chosen.strength <= alien1.strength) {console.log(`${alien1.name} attacks you`);
         chosen.fight()
         console.log(`You run back to the Hub to reconsider your options`)
         setTimeout(hub,2000)}}
@@ -312,6 +337,8 @@ const mainShip = async () => {
        
 
         let alien1= new allOfThem.LeaderAlien ('Leon')
+        let leonimage = await leon();
+        console.log(leonimage.bgBlue.green)
         console.log('You have reached the final stage')
         if (fall == 1) {console.log(`${alien1.name} starts laughing at you as you enter.  It's the guy from the video! Amazing!`)}
         let leader1 = await interior(alien1.name) 
@@ -334,7 +361,7 @@ const mainShip = async () => {
             console.log('The Alien leader also has a gun.  Who will draw first?')
             let dicerollcrew = (Math.floor(Math.random()*6)+1);
             let dicerollalien = (Math.floor(Math.random()*6)+1);
-            console.log(dicerollalien,dicerollcrew)
+            
             if (alien1.speed + dicerollalien > chosen.speed + dicerollcrew) {(console.log(`${alien1.name} shoots first!`)); setInterval(endDie,2000)}
             if (alien1.speed + dicerollalien == chosen.speed + dicerollcrew) {(console.log(`${alien1.name} and ${chosen.name} shoot at the same time!`)); setInterval(endDie,2000)}
             if (alien1.speed + dicerollalien < chosen.speed + dicerollcrew) {(console.log(`You shoot ${alien1.name} and manage to get signal to your ship to beam you up.  The crew and the fedoration will not be pleased with you`)); setInterval(theEnd,2000)}
@@ -349,7 +376,7 @@ const finalBattle = async (alien1) => {
             alien1.fight(alien1.name,chosen.name,3)
             chosen.stats()
             if (alien1.health <= 0 ) {
-                console.log(`As ${alien1.name} falls the the floor and draws his last breath, he calls out /"Computer, self discruct....." `,red)
+                console.log(`As ${alien1.name} falls the the floor and draws his last breath, he calls out "Computer, self discruct....." `,red)
                 setTimeout(console.log('5'), 1000)
                 setTimeout(console.log('4'), 2000)
                 setTimeout(console.log('3'), 3000)
@@ -357,8 +384,8 @@ const finalBattle = async (alien1) => {
                 setTimeout(console.log('1'), 5000)
                 setTimeout(endDie, 6000)
             }
-            letleader2 = await interior2(alien1.name, chosen.name)
-            if (letleader2.charAt(0)=='A') { 
+            leader2 = await interior2(alien1.name, chosen.name)
+            if (leader2.charAt(0)=='A') { 
                 chosen.finalFight(alien1.name)
                 alien1.fight(chosen.name,6)
                 finalBattle(alien1)
@@ -392,15 +419,16 @@ const endDie = async () => {
 
     console.error('You are dead, oh dear')
     
-    console.log(`Press CTRL+C to quit back to prompt, or game will restart`.bgGreen)
+    console.log(`Press CTRL+C to quit back to prompt`.bgGreen)
 }
 
 const theEnd = async () => {
-    
+    let winnerimage = await winner();
+        console.log(winnerimage.bgBlack)
     console.log('You survived.  Well Done')
 
     
-    console.log(`Press CTRL+C to quit back to prompt, or game may restart`.bgGreen)
+    console.log(`Press CTRL+C to quit back to prompt`.bgGreen)
 }
 
 
