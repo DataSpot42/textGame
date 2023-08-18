@@ -26,6 +26,7 @@ let entrystoragecount=0;
 let gunheat = 0;
 var colors = import('colors');
 let fall = 0;
+let leader2 = undefined;
 
 
 
@@ -281,7 +282,7 @@ const mainShip = async () => {
 
        if (mainShip1.charAt(0)=='B'){
         console.log('You have chosen to talk with her')
-        if (fall = 1) {console.log(`${alien1.name} smiles as she looks up from her Pad.  It's the guy from the video! Got to be biggest idiot in the galaxy!`)}
+        if (fall == 1) {console.log(`${alien1.name} smiles as she looks up from her Pad.  It's the guy from the video! Got to be biggest idiot in the galaxy!`)}
         if (chosen.skill==`Knowladge about aliens`){ 
            console.log(`You discuss what life is like on ${randomP()} with ${alien1.name}, using your knowledge of the planet and she suggests you talk with the leader and lets you on the ship`)
        setTimeout(shipInt,1000)} else {}
@@ -312,7 +313,7 @@ const mainShip = async () => {
 
         let alien1= new allOfThem.LeaderAlien ('Leon')
         console.log('You have reached the final stage')
-        if (fall = 1) {console.log(`${alien1.name} starts laughing at you as you enter.  It's the guy from the video! Amazing!`)}
+        if (fall == 1) {console.log(`${alien1.name} starts laughing at you as you enter.  It's the guy from the video! Amazing!`)}
         let leader1 = await interior(alien1.name) 
         
         if (leader1.charAt(0)=='A'){
@@ -323,7 +324,7 @@ const mainShip = async () => {
             console.log('Check your inventory for items'); console.log(chosen.inventory)
             let shipinv = await invtest() 
             if (shipinv.charAt(0) =='A'){    
-                
+                if(chosen.inventory == "Empty") {console.log(`You don't have anything!`); setTimeout(finalBattle(alien1), 2000)}
                 if(chosen.inventory == 'Peanuts'){
                 console.log(`${alien1.name} starts having an allergic reaction and falls the the ground`)
                 console.log(`${alien1.name} says, put those away!  Please!`); alien1.health -=4
@@ -356,7 +357,7 @@ const finalBattle = async (alien1) => {
                 setTimeout(console.log('1'), 5000)
                 setTimeout(endDie, 6000)
             }
-            let letleader2 = await interior2(alien1.name, chosen.name)
+            letleader2 = await interior2(alien1.name, chosen.name)
             if (letleader2.charAt(0)=='A') { 
                 chosen.finalFight(alien1.name)
                 alien1.fight(chosen.name,6)
