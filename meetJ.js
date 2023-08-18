@@ -33,6 +33,29 @@ export const talk2 = async ()=>{
     } )
     return convo
 }
+export const meetJunior2 = async(test) => {
+    let {meetJ2} = await inquirer.prompt({
+        message: `Do you wish to continue fighting or run away from ${test} You must make the decision to FIGHT or RUN.`,
+        type: 'list',
+        choices: ['FIGHT','RUN'],
+        name: "meetJ2"
+ 
+    } )
+    return meetJ2
+}
+export const meetJunior3 = async(test) => {
+    let {meetJ3} = await inquirer.prompt({
+        message: `Do you spare ${test} or do you finish him? `,
+        type: 'list',
+        choices: ['SPARE HIM','FINISH HIM!'],
+        name: "meetJ3"
+ 
+    } )
+    return meetJ3
+}
+
+
+
 
 
 //const start = async () => {

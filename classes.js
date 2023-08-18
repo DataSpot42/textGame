@@ -5,18 +5,11 @@ export class Character{
 
     constructor (name, intellect, strength, speed, 
         health){
-
         this.name = name;
-
-        this.intellect = intellect ;
-
+        this.intellect = intellect;
         this.strength = strength;
-
         this.speed = speed;
-
-        this.health = health;
-
-       
+        this.health = health;  
 
  
 
@@ -37,56 +30,16 @@ export class Character{
 
 } 
 
-class crew extends Character {
-    constructor (name, intellect, strength, speed, 
-        health,skill, inventory) {
-        super (name, intellect, strength, speed, 
-            health, skill,inventory);
 
-            this.inventory = inventory;
+export class aliens extends Character {
+        constructor (name, intellect, strength, speed, 
+            health, aggression) {
+            super (name, intellect, strength, speed, 
+                health, aggression);
+                this.aggression = aggression
+            
     }
-}   
-class aliens extends Character {
-    constructor (name, intellect, strength, speed, 
-        health, aggression) {
-        super (name, intellect, strength, speed, 
-            health, aggression);
-            this.aggression = aggression
-        
-}
-}
-
-
-export class Doctor extends crew {
-    constructor (name, intellect, strength, speed, 
-        health, inventory) {
-        super (intellect, strength, speed, 
-            health, inventory);
-
-        this.name = name
-        this.intellect = 10
-        this.strength = 5
-        this.speed = 4
-        this.health = 10
-        this.skill = 'Cure'
-        this.inventory = 'Empty'
-        
-    }
-
-    fight() {
-        this.health -= 3;
-        console.log(`${this.name} took a punch`);
-        this.stats();
-        return this;
-    }
-    badFood() {
-        
-        if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
-        else { this.health -=2; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
-     this.stats();}
-
-}
-
+}      
 export class Junior extends aliens {
     constructor (name, intellect, strength, speed, 
         health, aggression) {
@@ -97,7 +50,7 @@ export class Junior extends aliens {
         this.intellect = 5
         this.strength = 2
         this.speed = 3
-        this.health = 8
+        this.health = 3
         this.aggression = 2       
         
     }
@@ -115,8 +68,8 @@ export class Junior extends aliens {
                 health, aggression);
     
             this.name = name
-            this.intellect = 2
-            this.strength = 5
+            this.intellect = 5
+            this.strength = 6
             this.speed = 4
             this.health = 5
             this.aggression = 2       
@@ -151,7 +104,7 @@ export class Junior extends aliens {
             this.stats();
             return this;
         }  
-    }
+}
 
     export class LeaderAlien extends aliens {
         constructor (name, intellect, strength, speed, 
@@ -173,12 +126,51 @@ export class Junior extends aliens {
             this.stats();
             return this;
         }  
+}
+   
+
+
+export class crew extends Character {
+    constructor (name, intellect, strength, speed, 
+        health,skill, inventory) {
+        super (name, intellect, strength, speed, 
+            health, skill,inventory);
+
+            this.inventory = inventory;
+    }
+}    
+
+export class Doctor extends crew {
+    constructor (name, intellect, strength, speed, 
+        health, inventory) {
+        super (intellect, strength, speed, 
+            health, inventory);
+
+        this.name = name
+        this.intellect = 10
+        this.strength = 5
+        this.speed = 4
+        this.health = 10
+        this.skill = 'Cure'
+        this.inventory = 'Empty'
+        
     }
 
+    fight() {
+        this.health -= 3;
+        console.log(`${this.name} took a punch`);
+        this.stats();
+        return this;
+    }
+    badFood() {
+        health +=2
+        console.log(`Thankfully ${this.name} has an took a vaccine for this poison so is unaffeced, mmm tasty indeed`); 
+        
+     this.stats();
 
-    
+    }
+}
 
-  //  constructor(name, friendliness)} 
 
   export class securityOfficer extends crew {
     constructor (name, intellect, strength, speed, 
@@ -191,21 +183,21 @@ export class Junior extends aliens {
         this.strength = 10
         this.speed = 8
         this.health = 10
-        this.skill = 'Gun Arm'
+        this.skill = 'Body Armour'
         this.inventory = 'Empty'
     
     }
 
     fight() {
         ;
-        console.log(`${this.name} blocks the punch`);
+        console.log(`${this.name} the alien's punch has little affect to his armour`); this.health -=1;
         this.stats();
         return this;
     }
     badFood() {
         
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
-        else { this.health -=2; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
+        else { this.health -=4; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
 }     
 
@@ -248,13 +240,14 @@ export class Captain extends crew {
         this.strength = 7
         this.speed = 7
         this.health = 7
-        this.inventory = 'Artifact'
+        this.skill = 'Knowladge about aliens'
+        this.inventory = 'Empty'
     
     }
 
     fight() {
-        this.health -=1;
-        console.log(`${this.name} takes a punch but hits back`);
+        this.health -=2;
+        console.log(`${this.name} takes a punch but as he knows how these aliens fight he manages to partially block it`);
         this.stats();
         return this;
     }
@@ -282,8 +275,8 @@ export class Ensign extends crew {
     }
 
     fight() {
-        this.health -=4;
-        console.log(`${this.name} takes a punch`);
+        this.health -=5;
+        console.log(`${this.name} takes a punch and falls the the ground`);
         this.stats();
         return this;
     }

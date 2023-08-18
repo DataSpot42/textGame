@@ -13,6 +13,18 @@ export const entrance = async() => {
 
 }
 
+export const inventuse = async(name) => {
+    let {guard2} = await inquirer.prompt({
+        message: `Do you wish to use your inventory item with ${name} reconsider your options`,
+        type: 'list',
+        choices: ['A: Use inventory item', 'B: Reconsider'],
+        name: "guard2"
+ 
+    } )
+    return guard2
+
+}
+
 //const start = async () => {
     
 //    let guard2 = await entrance()
