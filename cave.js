@@ -34,7 +34,7 @@ export const chooseItem  = async() => {
     return option
 }
 
-export const secondChamce  = async() => {
+export const secondChance  = async() => {
     let {option} = await inquirer.prompt({
         message: 'You are given another chance. Do you still wish to fight?',
         type: 'list',

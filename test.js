@@ -1,0 +1,1 @@
+console.log('Hello, world!'); wait(1000); console.log('Goodbye, world!');

@@ -1,4 +1,4 @@
-
+let hit = 0
 
 
 export class Character{
@@ -94,7 +94,7 @@ export class Junior extends aliens {
             this.intellect = 7
             this.strength = 8
             this.speed = 6
-            this.health = 6
+            this.health = 3
             this.aggression = 10       
             
         }   
@@ -120,9 +120,11 @@ export class Junior extends aliens {
             this.aggression = 9       
             
         }   
-        fight() {
-            this.health -= 3;
-            console.log(`${this.name} took a punch`);
+        fight(alienbeing,crewbeing,num) {
+            hit = (Math.floor(Math.random()*num))
+            if (hit < 1) {console.log(`${crewbeing} missed`)} else {
+            this.health -= hit;
+            console.log(`${alienbeing} took a punch from ${crewbeing}, taking a hit of ${hit} health`)};
             this.stats();
             return this;
         }  
@@ -163,11 +165,17 @@ export class Doctor extends crew {
         return this;
     }
     badFood() {
-        health +=2
+        this.health +=2
         console.log(`Thankfully ${this.name} has an took a vaccine for this poison so is unaffeced, mmm tasty indeed`); 
         
      this.stats();
 
+    }
+    finalFight() {
+        this.health -= 4;
+        console.log(`${this.name} got hit hard `);
+        this.stats();
+        return this;
     }
 }
 
@@ -188,9 +196,9 @@ export class Doctor extends crew {
     
     }
 
-    fight() {
+    fight(alienbeing) {
         ;
-        console.log(`${this.name} the alien's punch has little affect to his armour`); this.health -=1;
+        console.log(`${alienbeing}s punch against ${this.name} has little affect due to his ${this.skill}`); this.health -=1;
         this.stats();
         return this;
     }
@@ -199,6 +207,11 @@ export class Doctor extends crew {
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
         else { this.health -=4; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
+
+    finalFight() {
+        this.health -= 2;
+        console.log(`${this.name} managed to slightly dodge the oncoming hit, just grazed his face`)
+    }
 }     
 
 export class scienceOfficer extends crew {
@@ -228,6 +241,13 @@ export class scienceOfficer extends crew {
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
         else { this.health -=2; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
+     
+    finalFight(){
+        this.health -= 3;
+        console.log(`${this.name} didn't see that punch coming, straight to the gut owwww.`);
+        this.stats();
+        return this;
+    }
 } 
 export class Captain extends crew {
     constructor (name, intellect, strength, speed, 
@@ -256,6 +276,13 @@ export class Captain extends crew {
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
         else { this.health -=2; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
+    
+     finalFight(){
+        this.health -= 3
+        console.log(`${this.name} that was a tough one, but I still have more to give.`);
+        this.stats();
+        return this;
+     }
 } 
 
 export class Ensign extends crew {
@@ -268,7 +295,7 @@ export class Ensign extends crew {
         this.intellect = 4
         this.strength = 4
         this.speed = 4
-        this.health = 2
+        this.health = 4
         this.skill = 'Changeling'
         this.inventory = 'Empty'
     
@@ -285,6 +312,10 @@ export class Ensign extends crew {
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
         else { this.health -=4; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
+    finalFight(){
+    this.health -= 5;
+    console.log(`This match is too tough for ${this.name} `)
+    }
 } 
  
 
