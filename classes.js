@@ -9,10 +9,7 @@ export class Character{
         this.intellect = intellect;
         this.strength = strength;
         this.speed = speed;
-        this.health = health;  
-
- 
-
+        this.health = health;
         }
         stats(){
             
@@ -24,7 +21,6 @@ export class Character{
                 health: this.health,
                 skill: this.skill,
                 inventory: this.inventory
-
             });
     }
 
@@ -36,8 +32,7 @@ export class aliens extends Character {
             health, aggression) {
             super (name, intellect, strength, speed, 
                 health, aggression);
-                this.aggression = aggression
-            
+                this.aggression = aggression            
     }
 }      
 export class Junior extends aliens {
@@ -45,15 +40,13 @@ export class Junior extends aliens {
         health, aggression) {
         super (intellect, strength, speed, 
             health, aggression);
-
         this.name = name
         this.intellect = 5
         this.strength = 2
         this.speed = 3
         this.health = 3
-        this.aggression = 2       
-        
-    }
+        this.aggression = 2    
+        }
     fight() {
         this.health -= 3;
         console.log(`${this.name} took a punch`);
@@ -137,11 +130,9 @@ export class crew extends Character {
         health,skill, inventory) {
         super (name, intellect, strength, speed, 
             health, skill,inventory);
-
             this.inventory = inventory;
     }
 }    
-
 export class Doctor extends crew {
     constructor (name, intellect, strength, speed, 
         health, inventory) {
@@ -154,8 +145,7 @@ export class Doctor extends crew {
         this.speed = 4
         this.health = 10
         this.skill = 'Cure'
-        this.inventory = 'Empty'
-        
+        this.inventory = 'Empty'        
     }
 
     fight() {
@@ -311,7 +301,9 @@ export class Ensign extends crew {
         
         if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
         else { this.health -=4; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
-     this.stats();} 
+     this.stats();
+    } 
+    
     finalFight(){
     this.health -= 5;
     console.log(`This match is too tough for ${this.name} `)

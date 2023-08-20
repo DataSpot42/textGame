@@ -8,7 +8,7 @@ import * as allMeets from "./meetJ.js"
 import * as crewpics from "./crewimages.js"
 import { location } from "./location.js"
 import {pod} from "./pod.js"
-import {storage} from "./storage.js"
+import {storageA, storageB, storageC} from "./storage.js"
 import * as caveOptions from "./cave.js"
 import {rightTunnel} from "./cave.js"
 import {entrance, inventuse} from "./sEntrance.js"
@@ -22,12 +22,16 @@ const randomP = uniqueRandomArray(randomItems.all);  // random planet generated
 
 
 let chosen = "";
-let entrystoragecount=0;
+let peantusstore=0;
+let antistore=0;
 let gunheat = 0;
-var colors = import('colors');   
+const colors = import('colors');   
 let fall = 0;                    // bit of humour
 let leader2 = undefined;
-let crewimage = undefined;    
+let crewimage = undefined; 
+let headcount = 0;   
+let storage = 'FFS'
+
 
 
 
@@ -120,7 +124,7 @@ const meet = async () => {      //first incounter with our alien.  Can you guess
          {console.log(`${alien1.name} is beat, he gives up and says: spare me and I'll give you tell you something important`)
          let meeting3= await allMeets.meetJunior3(alien.name)
          if (meeting3=='SPARE HIM'){console.log(`${alien1.name} tells you that the Alien Leader is allergic to peanuts.  You smile as you leave him to recover`)}
-        else {console.log(`You kill ${alien.name} in cold blood, you will learn nothing from him now, what a waste`)}
+        else {console.log(`You kill ${alien.name} in cold blood, you will learn nothing from him now, what a waste`); headcount++;}
         } 
          else {console.log(`You run away fron ${alien1.name} while you still can`)}
 }   
@@ -140,7 +144,7 @@ const hub = async () => {               // center of the game, often come back h
     console.log('You chose to go to ' + nextlocation)
     if (nextlocation.charAt(0) == "A") {mainPod()}
     if (nextlocation.charAt(0) == "B") {mainCave()}
-    if (nextlocation.charAt(0) == "C") {mainStorage()}
+    if (nextlocation.charAt(0) == "C") {mainStorage(storage)}
     if (nextlocation.charAt(0) == "D") {mainShip()}
 }
 const mainPod = async () => {
@@ -254,20 +258,32 @@ const mainPod = async () => {
 
 
    
-const mainStorage = async () => {
+const mainStorage = async (storage) => {
     let contpic = await contImage ();
         console.log(contpic.magenta)
     console.log('You enter the storage unit')
-    if (entrystoragecount==1) {console.log('There is nothing in here'); const myTimeoutsU= setTimeout(hub,2000)} else {
-    let storage1 = await storage()
-    console.log('You have chosen to ' + storage1 + '. Lets head back to the Central Hub')
-    if(storage1.charAt(0)== 'A'){
-        console.log('You have chosen to eat them, tasty!'); chosen.health += 2; console.log('Your health is now ' + chosen.health)}
-    if(storage1.charAt(0)== 'B'){
-        console.log('You have chosen to put them in your inventory'); chosen.inventory = "Peanuts"; console.log('Your inventory now has ' + chosen.inventory + ' in it.')}    
-    entrystoragecount=1
+    console.log(antistore,peantusstore)
+    
+    if (antistore==1 && peantusstore==1 ) {console.log('There is nothing in here')}
+    if (antistore==0 && peantusstore==0 ) {storage = await storageA(); console.log(storage)}
+    if (antistore==1 && peantusstore==0 ) {storage = await storageB(); console.log(storage)}
+    if (antistore==0 && peantusstore==1){storage = await storageC(); console.log(storage)} 
+    if(storage.charAt(0)== 'E'){
+        console.log('You have chosen to eat them, tasty!'); chosen.health += 2; console.log('Your health is now ' + chosen.health);
+        peantusstore=1}
+    if(storage.charAt(0)== 'R'){
+        console.log('You have chosen to put them in your inventory'); chosen.inventory = "Peanuts"; console.log('Your inventory now has ' + chosen.inventory + ' in it.'); 
+        peantusstore=1}    
+    
+    if(storage.charAt(0)== 'P'){
+        console.log('You have chosen to put it in your inventory'); chosen.inventory = "Antidote"; console.log('Your inventory now has ' + chosen.inventory + ' in it.'); 
+        antistore=1}
+    if(storage.charAt(0)== 'L'){
+            console.log('You have chosen to stick with your current inventory')}; 
+                 
+    console.log(`You head back the hub`.blue)
     setTimeout(hub, 2000)}
-}
+
 
 
 
@@ -426,6 +442,7 @@ const theEnd = async () => {
     let winnerimage = await winner();
         console.log(winnerimage.bgBlack)
     console.log('You survived.  Well Done')
+    if (headcount <=1) {console.log(`However, you killed at least one alien, you may have started a war....`)}
 
     
     console.log(`Press CTRL+C to quit back to prompt`.bgGreen)
