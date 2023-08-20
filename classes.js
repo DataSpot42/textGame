@@ -109,7 +109,7 @@ export class Junior extends aliens {
             this.intellect = 9
             this.strength = 9
             this.speed = 9
-            this.health = 9
+            this.health = 6
             this.aggression = 9       
             
         }   
@@ -188,13 +188,15 @@ export class Doctor extends crew {
 
     fight(alienbeing) {
         ;
-        console.log(`${alienbeing}s punch against ${this.name} has little affect due to his ${this.skill}`); this.health -=1;
+        console.log(`${alienbeing}s punch against ${this.name} has little affect due to his ${this.skill}`);
+        this.health -=1;
         this.stats();
         return this;
     }
     badFood() {
         
-        if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory`);}
+        if (this.inventory == "Antidote") {this.inventory = "Empty"; console.log(`Thankfully ${this.name} has an antidote to the poison in his inventory so health +3`); 
+        this.health +=3;}
         else { this.health -=4; console.log(`${this.name} didn't like the taste of that and starts seeing goblins running around him, getting trippy man, loose 2 health.`)};
      this.stats();} 
 

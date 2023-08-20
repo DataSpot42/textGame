@@ -44,7 +44,6 @@ let image =`                                       .:^~?JYY555P5P555Y?!~^.
                                 return image }
 
 export const kirkImage = async() => {
-
 let image = `                                .~..^7~~??7!7JJ~::::.                                               
                             :^::~?G&@@&@@@@B?^~!~:^^^J#PJ!^:                                        
                          ~G@@J:~#@BYYB&@@@@@Y. .^ :PJ?@@@@#57.                                      

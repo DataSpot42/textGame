@@ -29,8 +29,9 @@ const colors = import('colors');
 let fall = 0;                    // bit of humour
 let leader2 = undefined;
 let crewimage = undefined; 
-let headcount = 0;   
-let storage = 'FFS'
+let headcount = [];   
+let storage= undefined;
+let clock = 6
 
 
 
@@ -124,7 +125,7 @@ const meet = async () => {      //first incounter with our alien.  Can you guess
          {console.log(`${alien1.name} is beat, he gives up and says: spare me and I'll give you tell you something important`)
          let meeting3= await allMeets.meetJunior3(alien.name)
          if (meeting3=='SPARE HIM'){console.log(`${alien1.name} tells you that the Alien Leader is allergic to peanuts.  You smile as you leave him to recover`)}
-        else {console.log(`You kill ${alien.name} in cold blood, you will learn nothing from him now, what a waste`); headcount++;}
+        else {console.log(`You kill ${alien.name} in cold blood, you will learn nothing from him now, what a waste`); headcount.push(alien1.name);}
         } 
          else {console.log(`You run away fron ${alien1.name} while you still can`)}
 }   
@@ -144,7 +145,7 @@ const hub = async () => {               // center of the game, often come back h
     console.log('You chose to go to ' + nextlocation)
     if (nextlocation.charAt(0) == "A") {mainPod()}
     if (nextlocation.charAt(0) == "B") {mainCave()}
-    if (nextlocation.charAt(0) == "C") {mainStorage(storage)}
+    if (nextlocation.charAt(0) == "C") {mainStorage()}
     if (nextlocation.charAt(0) == "D") {mainShip()}
 }
 const mainPod = async () => {
@@ -197,10 +198,10 @@ const mainPod = async () => {
                 
                 if (chosen.skill == 'Escape Artist'){
                     console.log('You have used your skills to escape being captured, you head back the the hub')
-                   setTimeout(mainShip, 1000)
+                   setTimeout(hub, 3000)
                 }
                 else {console.log('You have lost your inventory item if you had any');chosen.inventory = 'Empty';chosen.stats();
-                setTimeout(mainShip, 1000)
+                setTimeout(mainShip, 3000)
             } }  } 
             else if (cave1.charAt(0) == 'B') {
             let alien1 = new allOfThem.CaveAlien ("Mathesar")
@@ -213,7 +214,7 @@ const mainPod = async () => {
             if (rightTunnel1.charAt(0) == 'A') {
                 if (chosen.intellect>alien1.intellect){
                     console.log(`${alien1.name}: So you seem like a smart one, I will tell you this: our Alien Leader is allergic to peanuts.`);
-                    console.log(`${alien1.name} let/'s you past and you will back the the hub`)
+                    console.log(`${alien1.name} let's you past and you will back the the hub`)
                     setTimeout(hub, 5000);
                 }
                 else {
@@ -238,7 +239,7 @@ const mainPod = async () => {
                     else {
                         console.log(`${alien1.name}: You are a coward. I will capture you and take you to your doom`);
                         console.log('You have lost your inventory item');chosen.inventory = 'Empty';chosen.stats();
-                        console.log(`You manage to escape ${alien1.name} as you approach the alien ship, but you still have handcuffs on so move slowly`); chosen.speed -=3; chosen.stats();
+                        console.log(`You manage to escape ${alien1.name} as you approach the alien ship, but you still have handcuffed on so move slowly`); chosen.speed -=3; chosen.stats();
                 setTimeout(mainShip, 6000)
                         
                     }
@@ -258,7 +259,7 @@ const mainPod = async () => {
 
 
    
-const mainStorage = async (storage) => {
+const mainStorage = async () => {
     let contpic = await contImage ();
         console.log(contpic.magenta)
     console.log('You enter the storage unit')
@@ -336,7 +337,7 @@ const mainShip = async () => {
        if (mainShip1.charAt(0)=='C') {
         console.log('You have chosen to fight with her')
        if (chosen.strength > alien1.strength && chosen.speed>alien1.speed) 
-          { console.log(`Your strength and speed are better than ${alien1.name}, she can see this and steps asside, you go into the ship`)
+          { console.log(`Your strength and speed are better than ${alien1.name}, she is no match she fights to the last..`); headcount.push(alien1.name); alien1.health -=10; chosen.health -=2
        setTimeout(shipInt,1000) } 
        if (chosen.health <= alien1.health || chosen.strength <= alien1.strength) {console.log(`${alien1.name} attacks you`);
         chosen.fight()
@@ -367,12 +368,12 @@ const mainShip = async () => {
             console.log('Check your inventory for items'); console.log(chosen.inventory)
             let shipinv = await invtest() 
             if (shipinv.charAt(0) =='A'){    
-                if(chosen.inventory == "Empty") {console.log(`You don't have anything!`); setTimeout(finalBattle(alien1), 2000)}
+                if(chosen.inventory == "Empty") {console.log(`You don't have anything!`); finalBattle(alien1)}
                 if(chosen.inventory == 'Peanuts'){
                 console.log(`${alien1.name} starts having an allergic reaction and falls the the ground`)
                 console.log(`${alien1.name} says, put those away!  Please!`); alien1.health -=4
                 console.log(`He get's this eppi pen out and takes a shot before getting back to his feet`)
-                setTimeout(finalBattle(alien1), 5000)}
+                finalBattle(alien1)}
             if(chosen.inventory == 'Gun'){
             console.log('The Alien leader also has a gun.  Who will draw first?')
             let dicerollcrew = (Math.floor(Math.random()*6)+1);
@@ -380,37 +381,42 @@ const mainShip = async () => {
             
             if (alien1.speed + dicerollalien > chosen.speed + dicerollcrew) {(console.log(`${alien1.name} shoots first!`)); setInterval(endDie,2000)}
             if (alien1.speed + dicerollalien == chosen.speed + dicerollcrew) {(console.log(`${alien1.name} and ${chosen.name} shoot at the same time!`)); setInterval(endDie,2000)}
-            if (alien1.speed + dicerollalien < chosen.speed + dicerollcrew) {(console.log(`You shoot ${alien1.name} and manage to get signal to your ship to beam you up.  The crew and the fedoration will not be pleased with you`)); setInterval(theEnd,2000)}
+            if (alien1.speed + dicerollalien < chosen.speed + dicerollcrew) {(console.log(`You shoot ${alien1.name} and manage to get signal to your ship to beam you up`)); headcount.push(alien1.name); setInterval(theEnd,2000)}
             }}}
             if (leader1.charAt(0)=='C'){
             reasoning(alien1)}
         }     
 
 const finalBattle = async (alien1) => {
-            console.log('fight!');
+            console.log(`So, who is better?  ${chosen.name} or ${alien.name}?  Only one way to find out....FIGHT!`);
             chosen.finalFight(alien1.name)
             alien1.fight(alien1.name,chosen.name,3)
             chosen.stats()
             if (alien1.health <= 0 ) {
-                console.log(`As ${alien1.name} falls the the floor and draws his last breath, he calls out "Computer, self discruct....." `,red)
-                setTimeout(console.log('5'), 1000)
-                setTimeout(console.log('4'), 2000)
-                setTimeout(console.log('3'), 3000)
-                setTimeout(console.log('2'), 4000)
-                setTimeout(console.log('1'), 5000)
-                setTimeout(endDie, 6000)
-            }
+                console.log(`As ${alien1.name} falls the the floor and draws his last breath, he calls out "Computer, self discruct....." `.red)
+                setTimeout(timer,1000)
+                setTimeout(timer,2000)
+                setTimeout(timer,3000)
+                setTimeout(timer,4000)
+                setTimeout(timer,5000)
+                setTimeout(endDie,6000)
+            } else{
+            finalBattlept2(alien1)}
+}
+const finalBattlept2 = async(alien1) =>{            
             leader2 = await interior2(alien1.name, chosen.name)
             if (leader2.charAt(0)=='A') { 
                 chosen.finalFight(alien1.name)
-                alien1.fight(chosen.name,6)
-                finalBattle(alien1)
+                alien1.fight(alien1.name,chosen.name,6)
+                finalBattle(alien1)     
+                console.log('trapbattle')           
             }
-            if (letleader2.charAt(0)=='B') {
-                reasoning(alien1)
+            if (leader2.charAt(0)=='B') {
+                reasoning(alien1)                
+            }
+  console.log('Trap4')      
+}
 
-            }
-        }            
   
 const reasoning = async (alien1) => {        
 
@@ -442,10 +448,17 @@ const theEnd = async () => {
     let winnerimage = await winner();
         console.log(winnerimage.bgBlack)
     console.log('You survived.  Well Done')
-    if (headcount <=1) {console.log(`However, you killed at least one alien, you may have started a war....`)}
+    let killlist = headcount.join(" , ")
+    if (headcount.length >0) {console.log(`However, you killed ${killlist} , you may have started a war....`)}
 
     
     console.log(`Press CTRL+C to quit back to prompt`.bgGreen)
+}
+
+const timer = async() => {
+    clock--
+    console.log(clock)
+
 }
 
 
@@ -457,7 +470,7 @@ const theEnd = async () => {
 
 
 
-console.log('For best experience maximise your terminal screen')
+console.log('For best experience maximise your terminal screen and switch to a dark theme in preferences')
 setTimeout(start, 4000)
 
 
