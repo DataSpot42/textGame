@@ -27,7 +27,7 @@ let antistore=0;
 let gunheat = 0;
 const colors = import('colors');   
 let fall = 0;                    // bit of humour
-let leader2 = undefined;
+let leader2 = undefined;        // some variables need to be global so are declared here
 let crewimage = undefined; 
 let headcount = [];   
 let storage= undefined;
@@ -263,10 +263,10 @@ const mainStorage = async () => {
     let contpic = await contImage ();
         console.log(contpic.magenta)
     console.log('You enter the storage unit')
-    console.log(antistore,peantusstore)
+    
     
     if (antistore==1 && peantusstore==1 ) {console.log('There is nothing in here')}
-    if (antistore==0 && peantusstore==0 ) {storage = await storageA(); console.log(storage)}
+    if (antistore==0 && peantusstore==0 ) {storage = await storageA(); console.log(storage)}  // checking what has already been taken from the unit
     if (antistore==1 && peantusstore==0 ) {storage = await storageB(); console.log(storage)}
     if (antistore==0 && peantusstore==1){storage = await storageC(); console.log(storage)} 
     if(storage.charAt(0)== 'E'){
@@ -377,7 +377,7 @@ const mainShip = async () => {
             if(chosen.inventory == 'Gun'){
             console.log('The Alien leader also has a gun.  Who will draw first?')
             let dicerollcrew = (Math.floor(Math.random()*6)+1);
-            let dicerollalien = (Math.floor(Math.random()*6)+1);
+            let dicerollalien = (Math.floor(Math.random()*6)+1);  // adds a random element to the game
             
             if (alien1.speed + dicerollalien > chosen.speed + dicerollcrew) {(console.log(`${alien1.name} shoots first!`)); setInterval(endDie,2000)}
             if (alien1.speed + dicerollalien == chosen.speed + dicerollcrew) {(console.log(`${alien1.name} and ${chosen.name} shoot at the same time!`)); setInterval(endDie,2000)}
@@ -388,12 +388,13 @@ const mainShip = async () => {
         }     
 
 const finalBattle = async (alien1) => {
-            console.log(`So, who is better?  ${chosen.name} or ${alien1.name}?  Only one way to find out....FIGHT!`);
+            console.log(`So, who is better?  ${chosen.name} or ${alien1.name}?  Only one way to find out....FIGHT!`);  // any Harry Hill fans with get this reference
             chosen.finalFight(alien1.name)
             alien1.fight(alien1.name,chosen.name,3)
             chosen.stats()
             if (alien1.health <= 0 ) {
                 console.log(`As ${alien1.name} falls the the floor and draws his last breath, he calls out "Computer, self discruct....." `.red)
+                console.log(`Ship will self-distruct in.....`);
                 setTimeout(timer,1000)
                 setTimeout(timer,2000)
                 setTimeout(timer,3000)
@@ -408,13 +409,13 @@ const finalBattlept2 = async(alien1) =>{
             if (leader2.charAt(0)=='A') { 
                 chosen.finalFight(alien1.name)
                 alien1.fight(alien1.name,chosen.name,6)
-                finalBattle(alien1)     
-                console.log('trapbattle')           
+                finalBattle(alien1) 
+                          
             }
             if (leader2.charAt(0)=='B') {
                 reasoning(alien1)                
             }
-  console.log('Trap4')      
+      
 }
 
   
