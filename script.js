@@ -194,14 +194,14 @@ const mainPod = async () => {
                 console.log('You are too slow, you lose ' + 4 + ' health');
                 chosen.health -= 4;
                 chosen.stats();
-                console.log('You have been captured by The Beast')
+                console.log('You have been captured by The Beast, he drags you towards the ship but you escape his clutches')
                 
                 if (chosen.skill == 'Escape Artist'){
                     console.log('You have used your skills to escape being captured, you head back the the hub')
                    setTimeout(hub, 3000)
                 }
                 else {console.log('You have lost your inventory item if you had any');chosen.inventory = 'Empty';chosen.stats();
-                setTimeout(mainShip, 3000)
+                setTimeout(mainShip, 4000)
             } }  } 
             else if (cave1.charAt(0) == 'B') {
             let alien1 = new allOfThem.CaveAlien ("Mathesar")
@@ -388,7 +388,7 @@ const mainShip = async () => {
         }     
 
 const finalBattle = async (alien1) => {
-            console.log(`So, who is better?  ${chosen.name} or ${alien.name}?  Only one way to find out....FIGHT!`);
+            console.log(`So, who is better?  ${chosen.name} or ${alien1.name}?  Only one way to find out....FIGHT!`);
             chosen.finalFight(alien1.name)
             alien1.fight(alien1.name,chosen.name,3)
             chosen.stats()
